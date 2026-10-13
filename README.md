@@ -6,6 +6,7 @@
   <img alt="format" src="https://img.shields.io/badge/format-OpenType%20(COLR)-dc7a35?style=flat-square&labelColor=3d332c">
   <img alt="glyphs" src="https://img.shields.io/badge/glyphs-252-5f8a4a?style=flat-square&labelColor=3d332c">
   <img alt="version" src="https://img.shields.io/badge/version-1.000-a34c17?style=flat-square&labelColor=3d332c">
+  <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-CC%20BY%204.0-695b50?style=flat-square&labelColor=3d332c"></a>
 </p>
 
 # にんふぉんと
@@ -120,7 +121,15 @@ docs/    この README の画像
 
 ## ライセンス
 
-準備中です。決まるまでは、個人で試す範囲でお使いください。
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja)（クリエイティブ・コモンズ 表示 4.0 国際）です。全文は [`LICENSE`](LICENSE) にあります。
+
+作者名を表示すれば、商用でも、改変しても、配り直しても自由に使えます。
+
+```
+にんふぉんと © にんじん (https://2nj.lol/) — CC BY 4.0
+```
+
+フォントのファイル、もとの線、画像、スクリプトのすべてが対象です。
 
 ---
 
