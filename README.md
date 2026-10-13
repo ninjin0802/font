@@ -5,7 +5,7 @@
 <p align="center">
   <img alt="format" src="https://img.shields.io/badge/format-OpenType%20(COLR)-dc7a35?style=flat-square&labelColor=3d332c">
   <img alt="glyphs" src="https://img.shields.io/badge/glyphs-252-5f8a4a?style=flat-square&labelColor=3d332c">
-  <img alt="version" src="https://img.shields.io/badge/version-1.000-a34c17?style=flat-square&labelColor=3d332c">
+  <img alt="version" src="https://img.shields.io/badge/version-1.001-a34c17?style=flat-square&labelColor=3d332c">
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-CC%20BY%204.0-695b50?style=flat-square&labelColor=3d332c"></a>
 </p>
 
