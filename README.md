@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="format" src="https://img.shields.io/badge/format-OpenType%20(COLR)-dc7a35?style=flat-square&labelColor=3d332c">
-  <img alt="glyphs" src="https://img.shields.io/badge/glyphs-252-5f8a4a?style=flat-square&labelColor=3d332c">
-  <img alt="version" src="https://img.shields.io/badge/version-1.001-a34c17?style=flat-square&labelColor=3d332c">
+  <img alt="glyphs" src="https://img.shields.io/badge/glyphs-313-5f8a4a?style=flat-square&labelColor=3d332c">
+  <img alt="version" src="https://img.shields.io/badge/version-1.100-a34c17?style=flat-square&labelColor=3d332c">
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-CC%20BY%204.0-695b50?style=flat-square&labelColor=3d332c"></a>
 </p>
 
@@ -37,17 +37,22 @@
 
 ## 収録している文字
 
-全部で 252 文字です。
+全部で 313 文字です。
 
 - ひらがな・カタカナ（濁音、半濁音、小さい字を含む）
+- 英字 `A`〜`Z`、`a`〜`z`（文字ごとに幅が違います）
 - 数字 `0`〜`9`
-- 記号 `、` `。` `「` `」` `！` `？` `・` `ー` `%` `（` `）`
+- 記号 `、` `。` `「` `」` `！` `？` `・` `ー` `%` `（` `）`、半角の `.` `,` `!` `?` `'` `-` `:` `/` `&`
 - 漢字 65 字（[2nj.lol](https://2nj.lol/) に出てくる字だけ）
 
-英字と、ここに無い漢字は入っていません。ほかのフォントと重ねて使ってください。
+ここに無い漢字は入っていません。ほかのフォントと重ねて使ってください。
 
 <p align="center">
   <img src="docs/images/kana.png" alt="ひらがなとカタカナの一覧" width="100%">
+</p>
+
+<p align="center">
+  <img src="docs/images/latin.png" alt="英字と半角の記号の一覧" width="100%">
 </p>
 
 <p align="center">
@@ -90,7 +95,7 @@ h1 {
 </p>
 
 1. **骨格を決める** — 文字ごとの中心線を [`src/glyphs.py`](src/glyphs.py) に書きます。濁点つきや小さい字、漢字の偏やつくりは、部品を使い回します。
-2. **線を描く** — ひらがな・カタカナは、骨格を少し揺らしながら、ベクター描画ソフト（VectorCraft）の鉛筆ツールで1画ずつなぞって描きました（[`work/sheet-1.svg`](work/sheet-1.svg)〜`sheet-6.svg`）。漢字と数字は、骨格から直接線にしています（`sheet-7.svg` 以降）。
+2. **線を描く** — ひらがな・カタカナは、骨格を少し揺らしながら、ベクター描画ソフト（VectorCraft）の鉛筆ツールで1画ずつなぞって描きました（[`work/sheet-1.svg`](work/sheet-1.svg)〜`sheet-6.svg`）。漢字と数字、英字は、骨格から直接線にしています（`sheet-7.svg` 以降）。
 3. **にんじんの形に肉付けする** — [`src/build.cjs`](src/build.cjs) が、線に太さを付け、角をまるめ、葉と本体を別の層に分けて、フォントのファイルに組み立てます。
 
 ### 自分で組み立てる
@@ -104,10 +109,10 @@ node src/build.cjs          # fonts/Ninfont.otf ができます（1〜2分）
 
 太さ、細り方、葉の形、葉の色は `src/build.cjs` の中の値で変えられます。
 
-漢字や数字の骨格を足したときは、先に線のシートを作り直します。
+漢字や数字、英字の骨格を足したときは、先に線のシートを作り直します。
 
 ```sh
-cd src && python3 direct.py 7 8 9
+cd src && python3 direct.py 7 8 9 10 11
 ```
 
 ## フォルダ

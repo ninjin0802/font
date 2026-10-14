@@ -7,6 +7,7 @@ const ROOT = path.join(__dirname, "..");
 // work/sheet-N.svg（VectorCraft で描いた線）と work/manifest-N.json（どの線がどの文字か）を読む
 const ORDER = [], cells = [], leaves = [], marks = new Map();
 const SMALL = new Set([..."ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮ"]), isKanji = ch => /[\u4e00-\u9fff]/.test(ch);
+const isLatin = ch => /[A-Za-z.,!?'\-:\/&]/.test(ch); // 英字と半角の記号: 幅は線の端から決める
 const ADV = { "%": 820, "（": 520, "）": 520 }; for (const c of "0123456789") ADV[c] = 620;
 for (let n = 1; fs.existsSync(path.join(ROOT, `work/manifest-${n}.json`)); n++) {
   const man = JSON.parse(fs.readFileSync(path.join(ROOT, `work/manifest-${n}.json`), "utf8"));
@@ -67,7 +68,7 @@ const layerGlyphs = [], colr = []; // colr: {base, body, leaf}（グリフ番号
 const preview = []; let pvRows = 0;
 const uni = (a, b) => (a ? a.unite(b, { insert: false }) : b);
 ORDER.forEach((ch, i) => {
-  const k = isKanji(ch) ? Math.max(0.5, Math.min(0.76, 1.0 - 0.03 * cells[i].length)) : SMALL.has(ch) ? 0.85 : cells[i].some(p => p.data.kind === "mark") ? 0.94 : 1;
+  const k = isLatin(ch) ? 0.92 : isKanji(ch) ? Math.max(0.5, Math.min(0.76, 1.0 - 0.03 * cells[i].length)) : SMALL.has(ch) ? 0.85 : cells[i].some(p => p.data.kind === "mark") ? 0.94 : 1;
   if (!cells[i].length) throw new Error("no strokes: " + ch);
   let body = null, leaf = null;
   for (const p of cells[i]) {
@@ -78,8 +79,9 @@ ORDER.forEach((ch, i) => {
     leaf = uni(leaf, flesh(lf, "sprout", k));
   }
   const narrow = "、。".includes(ch);
-  const adv = narrow ? 600 : (ADV[ch] || 960), G = isKanji(ch) ? 0.97 : 1.06; // 漢字は線が端まであるので、少し小さく組む
-  const X = x => Math.round((narrow ? x * 10 * G - 60 : (x - 50) * 10 * G + adv / 2)), Y = y => Math.round((50 - y) * 10 * G + 355);
+  const bb = body.bounds, LSB = 42;
+  const adv = isLatin(ch) ? Math.round(bb.width * 10.6 + LSB * 2) : narrow ? 600 : (ADV[ch] || 960), G = isKanji(ch) ? 0.97 : 1.06; // 漢字は線が端まであるので、少し小さく組む
+  const X = x => Math.round(isLatin(ch) ? (x - bb.left) * 10 * G + LSB : (narrow ? x * 10 * G - 60 : (x - 50) * 10 * G + adv / 2)), Y = y => Math.round((50 - y) * 10 * G + 355);
   const toPath = src => {
     // 合成でできた細かい点を間引いて、輪郭を軽くする
     const shape = src.clone({ insert: false });
@@ -114,7 +116,7 @@ glyphs.push(...layerGlyphs);
 fs.mkdirSync(path.join(ROOT, "out"), { recursive: true });
 const font = new opentype.Font({ familyName: "Ninfont", styleName: "Regular", unitsPerEm: 1000, ascender: 880, descender: -120, glyphs,
   designer: "ninjin", designerURL: "https://2nj.lol/", manufacturer: "ninjin", manufacturerURL: "https://github.com/ninjin0802/font",
-  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.001",
+  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.100",
   copyright: "Copyright (c) 2026 ninjin (https://2nj.lol/)",
   license: "This font is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). You may use, modify and redistribute it, including commercially, as long as you give credit: Ninfont (c) ninjin (https://2nj.lol/).",
   licenseURL: "https://creativecommons.org/licenses/by/4.0/" });
@@ -162,7 +164,7 @@ function addTables(src, extra) {
   return out;
 }
 buf = addTables(buf, colorTables());
-fs.writeFileSync(path.join(ROOT, "fonts/Ninfont.otf"), buf);
+fs.writeFileSync(path.join(ROOT, "out/Ninfont.otf"), buf);
 fs.writeFileSync(path.join(ROOT, "out/glyphs.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1760 ${pvRows * 110}" fill="#3d332c" fill-rule="nonzero">${preview.join("")}</svg>`);
 const chk = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.length));
 console.log(JSON.stringify(chk.names.fontFamily), JSON.stringify(chk.names.licenseURL), JSON.stringify(chk.names.copyright), "glyphs", chk.glyphs.length, "base", nBase, "check", chk.glyphs.get(nBase).name, chk.glyphs.get(3).name);
