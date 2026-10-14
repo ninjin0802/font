@@ -7,7 +7,7 @@ const ROOT = path.join(__dirname, "..");
 // work/sheet-N.svg（VectorCraft で描いた線）と work/manifest-N.json（どの線がどの文字か）を読む
 const ORDER = [], cells = [], leaves = [], marks = new Map();
 const SMALL = new Set([..."ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮ"]), isKanji = ch => /[\u4e00-\u9fff]/.test(ch);
-const isLatin = ch => /[A-Za-z.,!?'\-:\/&]/.test(ch); // 英字と半角の記号: 幅は線の端から決める
+const isLatin = ch => /[A-Za-z.,!?'\-:\/&()]/.test(ch); // 英字と半角の記号: 幅は線の端から決める
 const ADV = { "%": 820, "（": 520, "）": 520 }; for (const c of "0123456789") ADV[c] = 620;
 for (let n = 1; fs.existsSync(path.join(ROOT, `work/manifest-${n}.json`)); n++) {
   const man = JSON.parse(fs.readFileSync(path.join(ROOT, `work/manifest-${n}.json`), "utf8"));
@@ -116,7 +116,7 @@ glyphs.push(...layerGlyphs);
 fs.mkdirSync(path.join(ROOT, "out"), { recursive: true });
 const font = new opentype.Font({ familyName: "Ninfont", styleName: "Regular", unitsPerEm: 1000, ascender: 880, descender: -120, glyphs,
   designer: "ninjin", designerURL: "https://2nj.lol/", manufacturer: "ninjin", manufacturerURL: "https://github.com/ninjin0802/font",
-  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.100",
+  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.101",
   copyright: "Copyright (c) 2026 ninjin (https://2nj.lol/)",
   license: "This font is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). You may use, modify and redistribute it, including commercially, as long as you give credit: Ninfont (c) ninjin (https://2nj.lol/).",
   licenseURL: "https://creativecommons.org/licenses/by/4.0/" });

@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="format" src="https://img.shields.io/badge/format-OpenType%20(COLR)-dc7a35?style=flat-square&labelColor=3d332c">
-  <img alt="glyphs" src="https://img.shields.io/badge/glyphs-313-5f8a4a?style=flat-square&labelColor=3d332c">
-  <img alt="version" src="https://img.shields.io/badge/version-1.100-a34c17?style=flat-square&labelColor=3d332c">
+  <img alt="glyphs" src="https://img.shields.io/badge/glyphs-315-5f8a4a?style=flat-square&labelColor=3d332c">
+  <img alt="version" src="https://img.shields.io/badge/version-1.101-a34c17?style=flat-square&labelColor=3d332c">
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-CC%20BY%204.0-695b50?style=flat-square&labelColor=3d332c"></a>
 </p>
 
@@ -37,12 +37,12 @@
 
 ## 収録している文字
 
-全部で 313 文字です。
+全部で 315 文字です。
 
 - ひらがな・カタカナ（濁音、半濁音、小さい字を含む）
 - 英字 `A`〜`Z`、`a`〜`z`（文字ごとに幅が違います）
 - 数字 `0`〜`9`
-- 記号 `、` `。` `「` `」` `！` `？` `・` `ー` `%` `（` `）`、半角の `.` `,` `!` `?` `'` `-` `:` `/` `&`
+- 記号 `、` `。` `「` `」` `！` `？` `・` `ー` `%` `（` `）`、半角の `.` `,` `!` `?` `'` `-` `:` `/` `&` `(` `)`
 - 漢字 65 字（[2nj.lol](https://2nj.lol/) に出てくる字だけ）
 
 ここに無い漢字は入っていません。ほかのフォントと重ねて使ってください。
