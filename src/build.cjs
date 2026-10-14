@@ -116,7 +116,7 @@ glyphs.push(...layerGlyphs);
 fs.mkdirSync(path.join(ROOT, "out"), { recursive: true });
 const font = new opentype.Font({ familyName: "Ninfont", styleName: "Regular", unitsPerEm: 1000, ascender: 880, descender: -120, glyphs,
   designer: "ninjin", designerURL: "https://2nj.lol/", manufacturer: "ninjin", manufacturerURL: "https://github.com/ninjin0802/font",
-  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.200",
+  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.201",
   copyright: "Copyright (c) 2026 ninjin (https://2nj.lol/)",
   license: "This font is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). You may use, modify and redistribute it, including commercially, as long as you give credit: Ninfont (c) ninjin (https://2nj.lol/).",
   licenseURL: "https://creativecommons.org/licenses/by/4.0/" });
