@@ -94,7 +94,7 @@ h1 {
   <img src="docs/images/making.png" alt="鉛筆ツールで描いた線のシート" width="80%">
 </p>
 
-1. **骨格を決める** — 文字ごとの中心線を [`src/glyphs.py`](src/glyphs.py) に書きます。濁点つきや小さい字、漢字は、偏・旁・冠などの部品を先に描き、それを組み立てます（[`src/kanji_parts.py`](src/kanji_parts.py)）。
+1. **骨格を決める** — 文字ごとの中心線を [`src/glyphs.py`](src/glyphs.py) に書きます。濁点つきや小さい字、漢字は、偏・旁・冠などの部品を先に描き、それを組み立てます（[`src/kanji_parts.py`](src/kanji_parts.py)）。組み立てでは形が崩れる字（五・黒・紙）は、VectorCraft の鉛筆ツールで骨格を手書きしています（[`src/hand/`](src/hand/)）。
 2. **線を描く** — ひらがな・カタカナは、骨格を少し揺らしながら、ベクター描画ソフト（VectorCraft）の鉛筆ツールで1画ずつなぞって描きました（[`work/sheet-1.svg`](work/sheet-1.svg)〜`sheet-6.svg`）。漢字と数字、英字は、骨格から VectorCraft のコマンドライン版（`vectorcraft-cli`）で線を引いています（`sheet-7.svg` 以降）。
 3. **にんじんの形に肉付けする** — [`src/build.cjs`](src/build.cjs) が、線に太さを付け、角をまるめ、葉と本体を別の層に分けて、フォントのファイルに組み立てます。
 

@@ -2,6 +2,35 @@
 座標は glyphs.py と同じ 0〜100（y は下向き）。glyphs.py の最後で add_kanji(globals()) として呼ぶ。"""
 
 
+import math, os, re
+
+
+def hand_sheet(path, chars, s):
+    """手書きの SVG（M/L/C だけのパス）→ 文字ごとの骨格。線は 4 ほどの間隔で点を拾う。"""
+    out = {ch: [] for ch in chars}
+    for d in re.findall(r'<path[^>]*\sd="([^"]+)"', open(path).read()):
+        toks = re.findall(r"[MLC]|-?\d*\.?\d+", d); i = 0; cmd = None; cur = None; pts = []
+        while i < len(toks):
+            if toks[i] in "MLC": cmd = toks[i]; i += 1; continue
+            n = {"M": 2, "L": 2, "C": 6}[cmd]; v = list(map(float, toks[i:i + n])); i += n
+            if cmd == "M": cur = (v[0], v[1]); pts.append(cur)
+            elif cmd == "L": cur = (v[0], v[1]); pts.append(cur)
+            else:
+                b, c, e = (v[0], v[1]), (v[2], v[3]), (v[4], v[5])
+                for k in range(1, 17):
+                    t = k / 16; u = 1 - t
+                    pts.append(tuple(u**3 * cur[j] + 3*u*u*t * b[j] + 3*u*t*t * c[j] + t**3 * e[j] for j in (0, 1)))
+                cur = e
+        cell = min(int(pts[0][0] // 110), len(chars) - 1)
+        keep = [pts[0]]
+        for q in pts[1:]:
+            if math.dist(q, keep[-1]) >= 4: keep.append(q)
+        if math.dist(pts[-1], keep[-1]) > 0.5: keep.append(pts[-1])
+        if len(keep) < 3: keep.insert(1, ((keep[0][0] + keep[-1][0]) / 2, (keep[0][1] + keep[-1][1]) / 2))
+        out[chars[cell]].append(s(*[(round(x - cell * 110 - 5, 1), round(y - 5, 1)) for x, y in keep]))
+    return out
+
+
 def add_kanji(g):
     s, h, v, l, box, put, C = g["s"], g["h"], g["v"], g["l"], g["box"], g["put"], g["C"]
     NIN, ITO, GON, TE, KI, NOGI, MON, SHIN = (g[k] for k in ("NIN", "ITO", "GON", "TE", "KI", "NOGI", "MON", "SHIN"))
@@ -323,6 +352,9 @@ def add_kanji(g):
      "理": lr(P["王"], P["里"], 40),
      "話": lr(GON, P["舌"], 44),
     }
+    # VectorCraft の鉛筆ツールで手書きした骨格（hand/kanji-N.svg。1 枚に 110 ずつ横に並べた文字を、書き順どおりに）
+    for name, chars in (("kanji-1.svg", "五黒紙"),):
+        K.update(hand_sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "hand", name), chars, s))
     for ch, strokes in K.items():
         if ch not in G:
             G[ch] = strokes
