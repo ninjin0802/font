@@ -68,7 +68,7 @@ const layerGlyphs = [], colr = []; // colr: {base, body, leaf}（グリフ番号
 const preview = []; let pvRows = 0;
 const uni = (a, b) => (a ? a.unite(b, { insert: false }) : b);
 ORDER.forEach((ch, i) => {
-  const k = isLatin(ch) ? 0.92 : isKanji(ch) ? Math.max(0.5, Math.min(0.76, 1.0 - 0.03 * cells[i].length)) : SMALL.has(ch) ? 0.85 : cells[i].some(p => p.data.kind === "mark") ? 0.94 : 1;
+  const k = isLatin(ch) ? 0.92 : isKanji(ch) ? Math.max(0.6, Math.min(0.76, 0.88 - 0.014 * cells[i].length)) : SMALL.has(ch) ? 0.85 : cells[i].some(p => p.data.kind === "mark") ? 0.94 : 1;
   if (!cells[i].length) throw new Error("no strokes: " + ch);
   let body = null, leaf = null;
   for (const p of cells[i]) {
@@ -116,7 +116,7 @@ glyphs.push(...layerGlyphs);
 fs.mkdirSync(path.join(ROOT, "out"), { recursive: true });
 const font = new opentype.Font({ familyName: "Ninfont", styleName: "Regular", unitsPerEm: 1000, ascender: 880, descender: -120, glyphs,
   designer: "ninjin", designerURL: "https://2nj.lol/", manufacturer: "ninjin", manufacturerURL: "https://github.com/ninjin0802/font",
-  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.101",
+  description: "にんふぉんと — にんじんの形をした手書きのフォント", version: "Version 1.200",
   copyright: "Copyright (c) 2026 ninjin (https://2nj.lol/)",
   license: "This font is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). You may use, modify and redistribute it, including commercially, as long as you give credit: Ninfont (c) ninjin (https://2nj.lol/).",
   licenseURL: "https://creativecommons.org/licenses/by/4.0/" });
